@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+<p>const与let类似，只在声明的块级作用域中才有效，命令声明的常量不提升，存在暂时性死区，但const声明时的常量不能改变</p>
+ <p>const实际保证不是变量的值不能改变，而是变量指向的那个内存地址不得改动。</p>
+ <p>对于简单类型的数据（数值、字符串、布尔值），值就保存在变量指向的那个内存地址，因此等同于常量。但对于复合类型的数据（主要是对象和数组），变量指向的内存地址，保存的只是一个指针，const只能保证这个指针是固定的，至于它指向的数据结构是不是可变的，就完全不能控制了。</p>
+<h2>声明变量方式</h2>
+<p>es5：var命令和function命令</p>
+<p>es6：同上，let、const、import命令、class命令</p>
+
+<h2>顶层对象</h2>
+<p>在浏览器环境指的是window对象，在 Node 指的是global对象</p>
+
+
+<h2>解构赋值</h2>
+<p>解构赋值允许指定默认值</p>
+<p>es6中使用严格相等，如果一个数组成员不严格等于undefined，默认值是不会生效的</p>
+<p>若默认值是一个表达式，那么是惰性求值</p>
+<h2>解构赋值允许等号左边的模式之中，不放置任何变量名。因此，可以写出非常古怪的赋值表达式。</h2>
+<p>({} = [true, false]);</p>
+<p>({} = 'abc');</p>
+<p>({} = []);</p>
+    <script>
+        // 结构赋值
+        let [a,b,c] = [1,2,3];
+        let [foo,[[bar],baz]] = [1,[[2],3]];
+        console.log(foo + "+" + bar + "+" + baz + "=" + (foo + bar + baz));
+
+        let [d,[e = 'e2']] = ['d1',[]];     //e在等号右边需要有相应的空置
+        console.log('d:' + d);
+        console.log('e:' + e);
+
+        let [f = 1] = [undefined];
+        let [g = 1] = [null];
+        console.log('f:' + f);     //1
+        console.log('g:' + g);      //null,null不严格等于undefined,所以默认赋值失败
+
+        // 惰性求值
+        function foo1 () {
+            return h = ['h1'];
+        }
+        let [h = foo1()] = ['h2'];
+        console.log('h:' + h);      //h2,没有执行函数foo1()  
+        
+        //对象
+        let i;
+        ({i} = {i : 'i1'});         //JavaScript 引擎会将{i}理解成一个代码块
+        console.log('i:' + i);     
+
+
+        // 数组进行对象解构
+        let arr = [1,2,3,4,5,6];
+        let {0 : first,[arr.length - 1] : last} = arr;
+        console.log(first + last);      //7
+
+        
+
+    </script>
+</body>
+</html>
