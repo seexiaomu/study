@@ -68,15 +68,42 @@
     <h2>repeat()返回一个i性能的字符串，表示将原字符串重复n次</h2>
 
     <h2>字符串补全功能</h2>
+    <p>padStart(),padEnd()</p>
+    <p>padStart和padEnd一共接受两个参数，第一个参数用来指定字符串的最小长度，第二个参数是用来补全的字符串</p>
+    <p>如果原字符串的长度，等于或大于指定的最小长度，则返回原字符串。</p>
+    <p>'xxx'.padStart(2, 'ab') // 'xxx'</p>
+    <p>'xxx'.padEnd(2, 'ab') // 'xxx'</p>
+    <p>如果用来补全的字符串与原字符串，两者的长度之和超过了指定的最小长度，则会截去超出位数的补全字符串。</p>
+    <p>'abc'.padStart(10, '0123456789')// '0123456abc'</p>
+    <p>如果省略第二个参数，默认使用空格补全长度。</p>
+
+    <h2>模板字符串</h2>
+    <p>如果在模板字符串中需要使用反引号，则前面要用反斜杠转义。</p>
+    <p>模板字符串中嵌入变量，需要将变量名写在${}之中</p>
+    <p>大括号内部可以放入任意的JavaScript表达式，可以进行运算，以及引用对象属性。</p>
+
+    <h2>实例：模板编译</h2>
+    
     <script>
         console.log('x'.repeat(3));     //xxx
         console.log('hellow'.repeat(2));
 
         console.log('la'.repeat(3.2));      //参数是小数会取整，如果repeat的参数是负数或者Infinity，会报错。如果repeat的参数是字符串，则会先转换成数字。
     
-    
-    
-    
+        // 模板字符串
+        console.log(`in ojavascript this is
+            not legal.
+        `);
+        //字符串中嵌入变量
+        let [name,time] = ['lan','today'];
+        console.log(`hellow ${name},
+        how are you ${time} ?
+        `)
+        //模板字符串之中还能调用函数。
+        function hellow () {
+            return 'hellow world!'
+        }
+        console.log(`在给我两分钟 ${hellow()}`)   //hellow没有括号则打印整个函数
     </script>
 
 </body>
